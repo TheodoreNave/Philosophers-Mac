@@ -6,11 +6,28 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:14:38 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/01 13:15:14 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/01 14:50:11 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -38,4 +55,3 @@ int	ft_atoi(const char *str)
 	}
 	return (sign * res);
 }
-
