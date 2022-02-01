@@ -6,17 +6,18 @@
 #    By: tnave <tnave@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/04 17:14:41 by tnave             #+#    #+#              #
-#    Updated: 2022/02/01 14:53:05 by tnave            ###   ########.fr        #
+#    Updated: 2022/02/01 18:03:51 by tnave            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS =  philo.c								\
+SRCS =  srcs/philo.c								\
+		srcs/utils.c
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -pthread -I philosophers.h
+CFLAGS = -Wall -Wextra -Werror -pthread -I ./includes/
 
 HEADER = -I includes/
 

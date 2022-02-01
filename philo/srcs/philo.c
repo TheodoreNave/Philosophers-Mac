@@ -6,16 +6,16 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:14:49 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/01 14:53:16 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/01 19:15:44 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void *routine()
-{
-	printf("Coucou from thread\n");
-}
+// void *routine()
+// {
+// 	printf("Coucou from thread\n");
+// }
 
 
 
@@ -24,14 +24,6 @@ void *routine()
 // printf("time philo_1 is sleeping\n");
 // printf("time philo_1 is thinking\n");
 // printf("time philo_1 died\n");
-
-
-
-// need to atoi the number in av[1] to pass into array of pthread_t ?
-// av[1] numbers of philosophers
-// av[2] time_to_die
-// av[3] time_to_eat
-// av[4] time_to_sleep
 
 void print_values(t_utils *utils)
 {
@@ -42,13 +34,24 @@ void print_values(t_utils *utils)
 	printf("each_philo_eat = %d\n", utils->each_philo_eat);
 }
 
-int	give_values_args(char *av, t_utils *utils)
+int	give_values_args(char **av, int i, t_utils *utils)
 {
-	utils->nb_philo = atoi(av[1]);
-	utils->time_to_die = atoi(av[2]);
-	utils->time_to_eat = atoi(av[3]);
-	utils->time_to_sleep = atoi(av[4]);
-	utils->each_philo_eat = atoi(av[5]);
+	if (ft_atoi(av[i]) > 0)
+	{
+		if (i == 1)
+			utils->nb_philo = ft_atoi(av[i]);
+		else if (i == 2)
+			utils->time_to_die = ft_atoi(av[i]);
+		else if (i == 3)
+			utils->time_to_eat = ft_atoi(av[i]);
+		else if (i == 4)
+			utils->time_to_sleep = ft_atoi(av[i]);
+		else if (i == 5)
+			utils->each_philo_eat = ft_atoi(av[i]);
+		return (1);
+	}
+	else
+		return (0);
 }
 
 
@@ -59,26 +62,25 @@ int	parse_arguments(char **av, t_utils *utils)
 	i = 1;
 	while (av[i])
 	{
-		if (!ft_isdigit(av[i]))
-			return (1);
+		if (!(give_values_args(av, i, utils)))
+			return (0);
 		i++;
 	}
-	give_values_args(av, utils);
+	return (1);
 }
 
 int main(int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	pthread_t t1;
 	t_utils utils;
 
-	if (ac != 6)
-		return (0);
 	memset(&utils, 0, sizeof(t_utils));
-	parse_arguments(av, &utils);
+	if (ac < 5 || ac > 6)
+		return (0);
+	if (!(parse_arguments(av, &utils)))
+		return (1);
 	print_values(&utils);
 	// pthread_create(&t1, NULL, &routine, NULL);
 	// pthread_join(t1, NULL);						// Finir l'execution normalement / Terminer le processs / NULL car nous ne retournons rien
 	return (0);
 }
+
