@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:15:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/02 11:22:19 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 12:44:37 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@
 
 typedef struct 	s_philo
 {
-	struct s_philo 	*next;
-	int 			philo;
-	int 			forks;
+	pthread_mutex_t 		*thread;
+	pthread_mutex_t 		*forks;
 
 }				t_philo;
 
@@ -33,16 +32,18 @@ typedef struct 	s_philo
 
 typedef struct 					s_utils
 {
-	int							nb_philo;
-	__useconds_t				time_to_die;
-	__useconds_t				time_to_eat;
-	__useconds_t				time_to_sleep;
-	t_philo 					philo;
+	time_t						time_to_die;
+	time_t						time_to_eat;
+	time_t						time_to_sleep;
+	int 						nb_philo;
 	int							each_philo_eat;
+	t_philo 					*philo;
 
 }								t_utils;
 
 int	ft_atoi(char *str);
+
+int	ft_error(char *str);
 
 int	check_sign(const char *str, long int *i, int sign);
 

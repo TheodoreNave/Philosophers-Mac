@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:14:38 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/01 19:03:54 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 12:56:20 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@
 // 	gettimeofday(&time, NULL);
 // 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 // }
+
+int	ft_error(char *str)
+{
+	write(1, str, ft_strlen(str));
+	write(1, "\n", 1);
+	return (1);
+}
+
+char *ft_calloc(, size_t size)
+{
+	t_utils *utils;
+
+	utils = malloc(sizeof(t_utils) * utils->nb_philo);
+	if (!utils)
+		return (NULL);
+	memset(&utils, 0, sizeof(t_utils));
+	return (utils);
+}
 
 int	ft_strlen(char *str)
 {
