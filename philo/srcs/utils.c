@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:14:38 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/02 12:56:20 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 19:46:53 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ int	ft_error(char *str)
 	return (1);
 }
 
-char *ft_calloc(, size_t size)
+void *ft_calloc(size_t size)
 {
-	t_utils *utils;
+	void *memory;
 
-	utils = malloc(sizeof(t_utils) * utils->nb_philo);
-	if (!utils)
+	memory = malloc(sizeof(size));
+	if (!memory)
 		return (NULL);
-	memset(&utils, 0, sizeof(t_utils));
-	return (utils);
+	memset(memory, 0, sizeof(size));
+	return (memory);
 }
 
 int	ft_strlen(char *str)

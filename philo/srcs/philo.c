@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:14:49 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/02 12:43:50 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 19:41:13 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ int set_nb_philos(t_utils *utils)
 
 void print_values(t_utils *utils)
 {
+	int x = 10;
+	while (x --> 0) {
 	printf("nb_philo = %d\n", utils->nb_philo);
 	printf("time_to_die = %ld\n", utils->time_to_die);
 	printf("time_to_eat = %ld\n", utils->time_to_eat);
 	printf("time_to_sleep = %ld\n", utils->time_to_sleep);
 	printf("each_philo_eat = %d\n", utils->each_philo_eat);
-
+	}
 	// for (int i = 0 ; i < 10 ; i++) {
 	// printf("philos->thread[i] = %ld\n", utils->philo->thread[i]);
 	// printf("philos->forks[i] = %ld\n", utils->philo->forks[i]);
@@ -96,7 +98,7 @@ int main(int ac, char **av)
 	if ((ac < 5 || ac > 6) || (!parse_arguments(av, &utils)))
 		return (ft_error("Missing arguments || Parsing_error"));
 	// if only one philo fonctions
-	set_nb_philos(&utils);
+	// set_nb_philos(&utils);
 	print_values(&utils);
 	// pthread_create(&t1, NULL, &routine, NULL);
 	// pthread_join(t1, NULL);						// Finir l'execution normalement / Terminer le processs / NULL car nous ne retournons rien
