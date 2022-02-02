@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:14:49 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/02 11:20:02 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 11:22:10 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void print_values(t_utils *utils)
 	printf("each_philo_eat = %d\n", utils->each_philo_eat);
 }
 
-int	give_values_args(char **av, int i, t_utils *utils)
+int	give_args_values(char **av, int i, t_utils *utils)
 {
 	if (ft_atoi(av[i]) > 0)
 	{
@@ -57,7 +57,7 @@ int	parse_arguments(char **av, t_utils *utils)
 	i = 1;
 	while (av[i])
 	{
-		if (!(give_values_args(av, i, utils)))
+		if (!(give_args_values(av, i, utils)))
 			return (0);
 		i++;
 	}

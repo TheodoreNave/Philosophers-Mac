@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:15:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/02 11:21:19 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 11:22:19 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_sign(const char *str, long int *i, int sign);
 
 int	ft_strlen(char *str);
 
-int	give_values_args(char **av, int i, t_utils *utils);
+int	give_args_values(char **av, int i, t_utils *utils);
 
 int	parse_arguments(char **av, t_utils *utils);
 
