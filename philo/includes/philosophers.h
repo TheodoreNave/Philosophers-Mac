@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:15:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/01 19:03:00 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 11:21:19 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,23 @@
 # include <sys/time.h>
 # include <sys/types.h>
 
-// typedef struct 	s_list_utils
-// {
-// 	struct s_list_utils 	*next;
-// 	i;
+typedef struct 	s_philo
+{
+	struct s_philo 	*next;
+	int 			philo;
+	int 			forks;
 
-// }				t_list_utils;
+}				t_philo;
 
 // usleep(1000000);
 
 typedef struct 					s_utils
 {
-	// t_list_utils 		list;
 	int							nb_philo;
-	useconds_t					time_to_die;
-	useconds_t					time_to_eat;
-	useconds_t					time_to_sleep;
+	__useconds_t				time_to_die;
+	__useconds_t				time_to_eat;
+	__useconds_t				time_to_sleep;
+	t_philo 					philo;
 	int							each_philo_eat;
 
 }								t_utils;

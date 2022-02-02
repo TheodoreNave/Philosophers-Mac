@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:14:49 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/01 19:15:44 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/02 11:20:02 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 // {
 // 	printf("Coucou from thread\n");
 // }
-
 
 
 // printf("time philo_1 has taken a fork\n");
@@ -38,16 +37,12 @@ int	give_values_args(char **av, int i, t_utils *utils)
 {
 	if (ft_atoi(av[i]) > 0)
 	{
-		if (i == 1)
-			utils->nb_philo = ft_atoi(av[i]);
-		else if (i == 2)
-			utils->time_to_die = ft_atoi(av[i]);
-		else if (i == 3)
-			utils->time_to_eat = ft_atoi(av[i]);
-		else if (i == 4)
-			utils->time_to_sleep = ft_atoi(av[i]);
-		else if (i == 5)
-			utils->each_philo_eat = ft_atoi(av[i]);
+		utils->nb_philo = ft_atoi(av[1]);
+		utils->time_to_die = ft_atoi(av[2]);
+		utils->time_to_eat = ft_atoi(av[3]);
+		utils->time_to_sleep = ft_atoi(av[4]);
+		if (av[5])
+			utils->each_philo_eat = ft_atoi(av[5]);
 		return (1);
 	}
 	else
