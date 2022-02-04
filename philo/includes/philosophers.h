@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:15:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/02 12:44:37 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/04 16:15:54 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 # include <sys/time.h>
 # include <sys/types.h>
 
-typedef struct 	s_philo
-{
-	pthread_mutex_t 		*thread;
-	pthread_mutex_t 		*forks;
-
-}				t_philo;
 
 // usleep(1000000);
 
@@ -35,11 +29,23 @@ typedef struct 					s_utils
 	time_t						time_to_die;
 	time_t						time_to_eat;
 	time_t						time_to_sleep;
+	pthread_mutex_t 			lock;
+	pthread_mutex_t 			*forks;
 	int 						nb_philo;
 	int							each_philo_eat;
-	t_philo 					*philo;
 
 }								t_utils;
+
+typedef struct 	s_philo
+{
+	pthread_mutex_t 		*thread;
+	int 					id;
+	pthread_mutex_t 		eating;
+	t_utils 				*utils;
+}				t_philo;
+
+
+void *ft_calloc(size_t size);
 
 int	ft_atoi(char *str);
 
