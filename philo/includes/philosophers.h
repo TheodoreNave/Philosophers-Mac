@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/04 17:15:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/04 16:15:54 by tnave            ###   ########.fr       */
+/*   Created: 2022/02/09 18:02:09 by tnave             #+#    #+#             */
+/*   Updated: 2022/02/09 18:03:49 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
 # include <pthread.h>
 # include <stdio.h>
@@ -21,42 +21,62 @@
 # include <sys/time.h>
 # include <sys/types.h>
 
-
-// usleep(1000000);
-
-typedef struct 					s_utils
+// # define TAKE_FORK
+// # define EAT
+// # define SLEEP
+// # define THINK
+typedef struct s_utils
 {
 	time_t						time_to_die;
 	time_t						time_to_eat;
 	time_t						time_to_sleep;
-	pthread_mutex_t 			lock;
-	pthread_mutex_t 			*forks;
-	int 						nb_philo;
+	time_t						start;
+	pthread_mutex_t				lock;
+	pthread_mutex_t				*forks;
+	int							nb_philo;
 	int							each_philo_eat;
-
+	int							count;
 }								t_utils;
-
-typedef struct 	s_philo
+typedef struct s_philo
 {
-	pthread_mutex_t 		*thread;
-	int 					id;
-	pthread_mutex_t 		eating;
-	t_utils 				*utils;
-}				t_philo;
+	int						id;
+	pthread_mutex_t			eating;
+	pthread_mutex_t			think;
+	pthread_mutex_t			sleep;
+	t_utils					*utils;
+	pthread_t				thread;
+}							t_philo;
 
+void		snooze(time_t t);
 
-void *ft_calloc(size_t size);
+time_t		get_time(time_t start);
 
-int	ft_atoi(char *str);
+void		*ft_calloc(int size);
 
-int	ft_error(char *str);
+int			ft_atoi(char *str);
 
-int	check_sign(const char *str, long int *i, int sign);
+int			ft_error(char *str);
 
-int	ft_strlen(char *str);
+int			check_sign(const char *str, long int *i, int sign);
 
-int	give_args_values(char **av, int i, t_utils *utils);
+int			ft_strlen(char *str);
 
-int	parse_arguments(char **av, t_utils *utils);
+int			give_args_values(char **av, int i, t_utils *utils);
+
+int			parse_arguments(char **av, t_utils *utils);
+
+void		routine(t_philo *philo);
+
+t_philo		*call_philos(t_utils *utils);
+
+void		philosophers(t_philo *philo, t_utils *utils);
+
+void		print_values(t_utils *utils);
+
+int			philo_die(t_philo *philo);
+
+int			one_philo(t_philo *philo, char **av);
+
+void		init_forks(t_utils *utils);
 
 #endif

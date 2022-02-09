@@ -6,32 +6,11 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 13:14:38 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/02 19:46:53 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/09 18:07:41 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-// void	snooze(time_t t)
-// {
-// 	time_t start;
-
-// 	start = get_time(0);
-// 	while (1)
-// 	{
-// 		if (get_time(0) - start >= t)
-// 			break ;
-// 		usleep(200);
-// 	}
-// }
-
-// time_t	get_time(time_t start)
-// {
-// 	struct timeval	time;
-
-// 	gettimeofday(&time, NULL);
-// 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-// }
 
 int	ft_error(char *str)
 {
@@ -40,20 +19,20 @@ int	ft_error(char *str)
 	return (1);
 }
 
-void *ft_calloc(size_t size)
+void	*ft_calloc(int size)
 {
-	void *memory;
+	void	*memory;
 
-	memory = malloc(sizeof(size));
+	memory = malloc(size);
 	if (!memory)
 		return (NULL);
-	memset(memory, 0, sizeof(size));
+	memset(memory, 0, size);
 	return (memory);
 }
 
 int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
