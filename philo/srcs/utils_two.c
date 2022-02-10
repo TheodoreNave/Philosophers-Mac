@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 17:52:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/09 18:06:43 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/10 17:35:46 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,20 @@ int	one_philo(t_philo *philo, char **av)
 	return (1);
 }
 
-void	init_forks(t_utils *utils)
+int	init_forks(t_utils *utils)
 {
 	int	i;
 
 	i = 0;
 	utils->forks = ft_calloc(sizeof(pthread_mutex_t) * utils->nb_philo);
+	if (!utils->forks)
+		return (0);
 	while (i < utils->nb_philo)
 	{
 		pthread_mutex_init(&utils->forks[i], NULL);
 		i++;
 	}
+	return (1);
 }
 
 void	snooze(time_t t)

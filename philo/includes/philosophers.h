@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 18:02:09 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/09 18:03:49 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/10 17:59:24 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,34 @@
 # include <sys/time.h>
 # include <sys/types.h>
 
-// # define TAKE_FORK
-// # define EAT
-// # define SLEEP
-// # define THINK
+# define TAKE_LEFT_FORK "has taken a left fork"
+# define TAKE_RIGHT_FORK "has taken a right fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DEAD "is dead"
 typedef struct s_utils
 {
+	pthread_mutex_t				*forks;
 	time_t						time_to_die;
 	time_t						time_to_eat;
 	time_t						time_to_sleep;
 	time_t						start;
-	pthread_mutex_t				lock;
-	pthread_mutex_t				*forks;
+	time_t						life_of_phi;
 	int							nb_philo;
 	int							each_philo_eat;
 	int							count;
+	int 						dead;
 }								t_utils;
 typedef struct s_philo
 {
-	int						id;
 	pthread_mutex_t			eating;
 	pthread_mutex_t			think;
 	pthread_mutex_t			sleep;
-	t_utils					*utils;
 	pthread_t				thread;
+	pthread_t 				control;
+	t_utils					*utils;
+	int						id;
 }							t_philo;
 
 void		snooze(time_t t);
@@ -77,6 +81,6 @@ int			philo_die(t_philo *philo);
 
 int			one_philo(t_philo *philo, char **av);
 
-void		init_forks(t_utils *utils);
+int			init_forks(t_utils *utils);
 
 #endif
