@@ -6,17 +6,11 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 17:52:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/10 17:35:46 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/11 16:22:22 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-int	philo_die(t_philo *philo)
-{
-	printf("%ld %d died\n", get_time(philo->utils->start), philo->id + 1);
-	exit(0);
-}
 
 int	one_philo(t_philo *philo, char **av)
 {

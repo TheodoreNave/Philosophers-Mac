@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:14:49 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/10 18:10:40 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/11 20:13:12 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void 	check_dead_philo(t_philo *philo)
 	{
 		usleep(1000);
 		pthread_mutex_lock(&philo->eating);
-		if (get_time(0) - philo->utils->life_of_phi > philo->utils->time_to_eat)
+		if (get_time(0) - philo->utils->life_of_phi >= philo->utils->time_to_die)
 		{
-			philo->utils->dead++;
 			printf("%ld %d %s\n", get_time(philo->utils->start), philo->id + 1, DEAD);
+			philo->utils->dead = 1;
 			pthread_mutex_unlock(&philo->eating);
 			return ;
 		}
@@ -61,36 +61,32 @@ void 	check_dead_philo(t_philo *philo)
 
 void	routine(t_philo *philo)
 {
-	// t_philo	*phi;
+	t_philo	*phi;
 
-	// phi = (t_philo *)philo;
-	// philo->utils->life_of_phi = get_time(0);
-	// if (philo->utils->each_philo_eat > -1)
-	// {
-		// count = philo->utils->each_philo_eat;
-		while (!philo->utils->dead)
-		{
-			pthread_mutex_lock(&philo->utils->forks[philo->id]);
-			printf("%ld %d %s\n", get_time(philo->utils->start), philo->id + 1, TAKE_LEFT_FORK);
-			pthread_mutex_lock(&philo->utils->forks[(philo->id + 1) % philo->utils->nb_philo]);
-			printf("%ld %d %s\n", get_time(philo->utils->start), philo->id + 1, TAKE_RIGHT_FORK);
-			philo->utils->life_of_phi = get_time(0);
-			pthread_mutex_lock(&philo->eating);
-			printf("%ld %d %s\n", get_time(philo->utils->start), philo->id + 1, EAT);
-			snooze(philo->utils->time_to_eat);
-			pthread_mutex_unlock(&philo->eating);
-			pthread_mutex_unlock(&philo->utils->forks[philo->id]);
-			pthread_mutex_unlock(&philo->utils->forks[(philo->id + 1) % philo->utils->nb_philo]);
-			printf("%ld %d %s\n", get_time(philo->utils->start), philo->id + 1, SLEEP);
-			snooze(philo->utils->time_to_sleep);
-			printf("%ld %d %s\n", get_time(philo->utils->start), philo->id + 1, THINK);
-		}
-		// if (phi->utils->time_to_eat > phi->utils->start)
-		// 	philo_die(phi);
-		// count ++;
-	// }
-	// else
-		// printf("coucou\n");
+	phi = (t_philo *)philo;
+	philo->utils->life_of_phi = get_time(0);
+	phi->count = phi->utils->each_philo_eat;
+	while (1)
+	{
+		if (philo->utils->dead == 1 || phi->count == 0)
+			break ;
+		phi->count--;
+		pthread_mutex_lock(&phi->utils->forks[phi->id]);
+		printf("%ld %d %s\n", get_time(phi->utils->start), phi->id + 1, TAKE_LEFT_FORK);
+		pthread_mutex_lock(&phi->utils->forks[(phi->id + 1) % phi->utils->nb_philo]);
+		printf("%ld %d %s\n", get_time(phi->utils->start), phi->id + 1, TAKE_RIGHT_FORK);
+		pthread_mutex_lock(&phi->eating);
+		phi->utils->life_of_phi = get_time(0);
+		printf("%ld %d %s\n", get_time(phi->utils->start), phi->id + 1, EAT);
+		snooze(phi->utils->time_to_eat);
+		pthread_mutex_unlock(&phi->eating);
+		pthread_mutex_unlock(&phi->utils->forks[phi->id]);
+		pthread_mutex_unlock(&phi->utils->forks[(phi->id + 1) % phi->utils->nb_philo]);
+		printf("%ld %d %s\n", get_time(phi->utils->start), phi->id + 1, SLEEP);
+		snooze(phi->utils->time_to_sleep);
+		printf("%ld %d %s\n", get_time(phi->utils->start), phi->id + 1, THINK);
+	}
+	return ;
 }
 
 void	philosophers(t_philo *philo, t_utils *utils)	// Change value of return
@@ -98,7 +94,8 @@ void	philosophers(t_philo *philo, t_utils *utils)	// Change value of return
 	int	i;
 
 	i = 0;
-	// philo[0].utils->start = get_time(0);
+	philo[0].utils->start = get_time(0);
+	philo->utils->life_of_phi = get_time(0);
 	while (i < utils->nb_philo)
 	{
 		if (pthread_create(&philo[i].thread, NULL, (void *)routine, &philo[i]) != 0)
@@ -141,8 +138,6 @@ int	free_all(t_philo *philo, t_utils *utils)
 	}
 	if (philo)
 		free(philo);
-	if (utils)
-		free(utils);
 	if (utils->forks)
 		free(utils->forks);
 	return (1);
@@ -162,7 +157,7 @@ int	main(int ac, char **av)
 	philo[0].utils->start = get_time(0);
 	if (!(init_forks(&utils)))
 		return (ft_error("Callocqq error\n"));
-	// print_values(&utils);
+	print_values(&utils);
 	if (!(one_philo(philo, av)))
 		return (1);
 	philosophers(philo, &utils);	// to_protect

@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 18:02:09 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/10 17:59:24 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/11 17:21:49 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ typedef struct s_utils
 	time_t						life_of_phi;
 	int							nb_philo;
 	int							each_philo_eat;
-	int							count;
 	int 						dead;
+	int							count_les_philolo;
+	int 						ko;
+	int stat;
 }								t_utils;
 typedef struct s_philo
 {
@@ -48,6 +50,8 @@ typedef struct s_philo
 	pthread_t				thread;
 	pthread_t 				control;
 	t_utils					*utils;
+	pthread_mutex_t 		lock;
+	int						count;
 	int						id;
 }							t_philo;
 
