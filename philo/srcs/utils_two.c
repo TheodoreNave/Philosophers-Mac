@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 17:52:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/11 16:22:22 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/11 22:37:46 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	one_philo(t_philo *philo, char **av)
 {
 	if (ft_atoi(av[1]) == 1)
 	{
+		philo[0].utils->start = get_time(0);
 		printf("%ld 1 has taken a fork\n", get_time(philo->utils->start));
 		printf("%d 1 has died\n", ft_atoi(av[2]));
 		return (0);
