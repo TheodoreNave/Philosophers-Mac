@@ -1,44 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_two.c                                        :+:      :+:    :+:   */
+/*   sleep.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 17:52:14 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/11 22:37:46 by tnave            ###   ########.fr       */
+/*   Created: 2022/02/14 16:28:09 by tnave             #+#    #+#             */
+/*   Updated: 2022/02/14 16:28:15 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-int	one_philo(t_philo *philo, char **av)
-{
-	if (ft_atoi(av[1]) == 1)
-	{
-		philo[0].utils->start = get_time(0);
-		printf("%ld 1 has taken a fork\n", get_time(philo->utils->start));
-		printf("%d 1 has died\n", ft_atoi(av[2]));
-		return (0);
-	}
-	return (1);
-}
-
-int	init_forks(t_utils *utils)
-{
-	int	i;
-
-	i = 0;
-	utils->forks = ft_calloc(sizeof(pthread_mutex_t) * utils->nb_philo);
-	if (!utils->forks)
-		return (0);
-	while (i < utils->nb_philo)
-	{
-		pthread_mutex_init(&utils->forks[i], NULL);
-		i++;
-	}
-	return (1);
-}
 
 void	snooze(time_t t)
 {
