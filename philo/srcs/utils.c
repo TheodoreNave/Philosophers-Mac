@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:19:46 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/15 14:04:41 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 15:37:22 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ int	free_all(t_philo *philo, t_utils *utils)
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&philo->utils->lock);
-	pthread_mutex_destroy(&philo->utils->count_protect);
-	pthread_mutex_destroy(&philo->utils->is_dead);
 	while (i < utils->nb_philo)
 	{
 		if (philo)
@@ -28,11 +25,14 @@ int	free_all(t_philo *philo, t_utils *utils)
 			pthread_mutex_destroy(&utils->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&philo->utils->lock);
+	pthread_mutex_destroy(&philo->utils->count_protect);
+	pthread_mutex_destroy(&philo->utils->is_dead);
 	if (philo)
 		free(philo);
 	if (utils->forks)
 		free(utils->forks);
-	return (1);
+	return (0);
 }
 
 int	ft_error(char *str)

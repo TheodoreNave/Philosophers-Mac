@@ -6,7 +6,7 @@
 #    By: tnave <tnave@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/14 15:04:00 by tnave             #+#    #+#              #
-#    Updated: 2022/02/15 14:25:36 by tnave            ###   ########.fr        #
+#    Updated: 2022/02/15 15:42:15 by tnave            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,12 @@ SRCS =  srcs/philosophers.c							\
 		srcs/threads.c								\
 		srcs/parsing.c								\
 		srcs/life_of_phi.c							\
+		srcs/death_of_phi.c  						\
 		srcs/sleep.c
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -pthread -I ./includes/ -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread -I ./includes/ -fsanitize=address
 
 HEADER = -I includes/
 

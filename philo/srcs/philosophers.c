@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:04:57 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/15 14:04:33 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 15:42:57 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,9 @@ int	main(int ac, char **av)
 	if (!(init_forks(&utils)))
 		return (free_all(philo, &utils) && ft_error("Calloc Error\n"));
 	if (!(one_philo(philo, av)))
-		return (free_all(philo, &utils) && (1));
+		return (free_all(philo, &utils));
 	if (!(philosophers(philo, &utils)))
 		return (free_all(philo, &utils) && (1));
 	free_all(philo, &utils);
 	return (0);
 }
-
-// Leaks
