@@ -6,7 +6,7 @@
 #    By: tnave <tnave@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/14 15:04:00 by tnave             #+#    #+#              #
-#    Updated: 2022/02/14 16:32:31 by tnave            ###   ########.fr        #
+#    Updated: 2022/02/15 14:25:36 by tnave            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS =  srcs/philosophers.c							\
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -pthread -I ./includes/
+CFLAGS = -Wall -Wextra -Werror -pthread -I ./includes/ -fsanitize=thread
 
 HEADER = -I includes/
 

@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 18:02:09 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/14 19:48:26 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 14:18:35 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_utils
 {
 	pthread_mutex_t				*forks;
 	pthread_mutex_t				count_protect;
+	pthread_mutex_t				lock;
+	pthread_mutex_t				is_dead;
 	time_t						time_to_die;
 	time_t						time_to_eat;
 	time_t						time_to_sleep;
@@ -43,9 +45,6 @@ typedef struct s_utils
 typedef struct s_philo
 {
 	pthread_mutex_t			eating;
-	pthread_mutex_t			think;
-	pthread_mutex_t			sleep;
-	pthread_mutex_t			lock;
 	pthread_t				thread;
 	pthread_t				control;
 	time_t					life_of_phi;

@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:04:57 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/14 19:57:31 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 14:04:33 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ t_philo	*call_philos(t_utils *utils)
 		pthread_mutex_init(&philo[i].eating, NULL);
 		i++;
 	}
-	pthread_mutex_init(&philo->lock, NULL);
+	pthread_mutex_init(&philo->utils->lock, NULL);
 	pthread_mutex_init(&philo->utils->count_protect, NULL);
+	pthread_mutex_init(&philo->utils->is_dead, NULL);
 	return (philo);
 }
 

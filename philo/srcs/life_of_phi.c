@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:12:03 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/14 20:00:23 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 14:27:04 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,46 @@
 
 int	are_they_dead(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->utils->is_dead);
 	philo->utils->dead = 1;
-	pthread_mutex_unlock(&philo->lock);
-	pthread_mutex_lock(&philo->utils->count_protect);
+	pthread_mutex_unlock(&philo->utils->is_dead);
 	write_thread("%ld %d %s\n", get_time(philo->utils->start), philo, DEAD);
-	pthread_mutex_unlock(&philo->utils->count_protect);
 	pthread_mutex_unlock(&philo->eating);
 	return (0);
 }
 
+int	calculate_dead(t_philo *philo)
+{
+	if (get_time(0) - philo->life_of_phi > philo->utils->time_to_die)
+	{
+		are_they_dead(philo);
+		return (0);
+	}
+	return (1);
+}
+
 void	check_dead_philo(t_philo *philo)
 {
-	while (!philo->utils->dead)
+	while (1)
 	{
 		usleep(1000);
 		pthread_mutex_lock(&philo->utils->count_protect);
-		if (philo->count == 0)
+		if (!philo->count)
 		{
 			pthread_mutex_unlock(&philo->utils->count_protect);
 			return ;
 		}
 		pthread_mutex_unlock(&philo->utils->count_protect);
-		pthread_mutex_lock(&philo->lock);
+		pthread_mutex_lock(&philo->utils->is_dead);
 		if (philo->utils->dead)
 		{
-			pthread_mutex_unlock(&philo->lock);
+			pthread_mutex_unlock(&philo->utils->is_dead);
 			return ;
 		}
-		pthread_mutex_unlock(&philo->lock);
+		pthread_mutex_unlock(&philo->utils->is_dead);
 		pthread_mutex_lock(&philo->eating);
-		if (get_time(0) - philo->life_of_phi > philo->utils->time_to_die)
-			are_they_dead(philo);
+		if (!(calculate_dead(philo)))
+			return ;
 		pthread_mutex_unlock(&philo->eating);
 	}
 	return ;
@@ -53,6 +61,9 @@ void	check_dead_philo(t_philo *philo)
 
 void	the_routine_of_philosophers(t_philo *phi)
 {
+	pthread_mutex_lock(&phi->utils->count_protect);
+	phi->count--;
+	pthread_mutex_unlock(&phi->utils->count_protect);
 	pthread_mutex_lock(&phi->utils->forks[phi->id]);
 	write_thread("%ld %d %s\n", get_time(phi->utils->start), phi, TAKE_FORK);
 	pthread_mutex_lock(&phi->utils->forks[(phi->id + 1)
@@ -79,13 +90,13 @@ void	morning_routine(t_philo *philo)
 	setup_count_and_life(phi);
 	while (1)
 	{
-		pthread_mutex_lock(&phi->utils->count_protect);
+		pthread_mutex_lock(&phi->utils->is_dead);
 		if (phi->utils->dead)
 		{
-			pthread_mutex_unlock(&phi->utils->count_protect);
+			pthread_mutex_unlock(&phi->utils->is_dead);
 			return ;
 		}
-		pthread_mutex_unlock(&phi->utils->count_protect);
+		pthread_mutex_unlock(&phi->utils->is_dead);
 		pthread_mutex_lock(&phi->utils->count_protect);
 		if (!phi->count)
 		{
@@ -93,7 +104,6 @@ void	morning_routine(t_philo *philo)
 			return ;
 		}
 		pthread_mutex_unlock(&phi->utils->count_protect);
-		phi->count--;
 		the_routine_of_philosophers(phi);
 	}
 	return ;

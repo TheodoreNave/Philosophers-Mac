@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 16:13:18 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/14 19:49:33 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 14:10:00 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 void	write_thread(char *str, time_t time, t_philo *philo, char *define)
 {
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_lock(&philo->utils->is_dead);
 	if (!philo->utils->dead)
 	{
 		printf(str, time, philo->id + 1, define);
-		pthread_mutex_unlock(&philo->lock);
+		pthread_mutex_unlock(&philo->utils->is_dead);
 		return ;
 	}
-	pthread_mutex_unlock(&philo->lock);
-	pthread_mutex_lock(&philo->lock);
+	pthread_mutex_unlock(&philo->utils->is_dead);
+	pthread_mutex_lock(&philo->utils->lock);
 	if (!philo->utils->write_dead)
 	{
 		philo->utils->write_dead = 1;
 		printf(str, time, philo->id + 1, define);
-		pthread_mutex_unlock(&philo->lock);
+		pthread_mutex_unlock(&philo->utils->lock);
 		return ;
 	}
-	pthread_mutex_unlock(&philo->lock);
+	pthread_mutex_unlock(&philo->utils->lock);
 	return ;
 }
 
