@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 18:02:09 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/15 15:29:09 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 15:56:03 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ time_t	get_time(time_t start);
 
 int		ft_error(char *str);
 
-int		free_all(t_philo *philo, t_utils *utils);
+int		free_all(t_philo *philo, t_utils *utils, int error);
 
 int		setup_count_and_life(t_philo *phi);
 

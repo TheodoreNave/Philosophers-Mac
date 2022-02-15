@@ -6,13 +6,13 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:19:46 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/15 15:37:22 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 15:55:19 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	free_all(t_philo *philo, t_utils *utils)
+int	free_all(t_philo *philo, t_utils *utils, int error)
 {
 	int	i;
 
@@ -25,14 +25,19 @@ int	free_all(t_philo *philo, t_utils *utils)
 			pthread_mutex_destroy(&utils->forks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&philo->utils->lock);
-	pthread_mutex_destroy(&philo->utils->count_protect);
-	pthread_mutex_destroy(&philo->utils->is_dead);
 	if (philo)
+	{
+		pthread_mutex_destroy(&philo->utils->lock);
+		pthread_mutex_destroy(&philo->utils->count_protect);
+		pthread_mutex_destroy(&philo->utils->is_dead);
 		free(philo);
+	}
 	if (utils->forks)
 		free(utils->forks);
-	return (0);
+	if (error == 1)
+		return (1);
+	else
+		return (0);
 }
 
 int	ft_error(char *str)

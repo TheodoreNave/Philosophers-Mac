@@ -6,7 +6,7 @@
 /*   By: tnave <tnave@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:04:57 by tnave             #+#    #+#             */
-/*   Updated: 2022/02/15 15:42:57 by tnave            ###   ########.fr       */
+/*   Updated: 2022/02/15 16:02:44 by tnave            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int	main(int ac, char **av)
 		return (ft_error("Missing arguments || Parsing Error\n"));
 	philo = call_philos(&utils);
 	if (!philo)
-		return (free_all(philo, &utils) && ft_error("Calloc error\n"));
+		return (free_all(philo, &utils, 1) && ft_error("Calloc error\n"));
 	if (!(init_forks(&utils)))
-		return (free_all(philo, &utils) && ft_error("Calloc Error\n"));
+		return (free_all(philo, &utils, 1) && ft_error("Calloc Error\n"));
 	if (!(one_philo(philo, av)))
-		return (free_all(philo, &utils));
+		return (free_all(philo, &utils, 0));
 	if (!(philosophers(philo, &utils)))
-		return (free_all(philo, &utils) && (1));
-	free_all(philo, &utils);
+		return (free_all(philo, &utils, 1) && (1));
+	free_all(philo, &utils, 1);
 	return (0);
 }
